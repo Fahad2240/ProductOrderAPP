@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Low Stock Products";
+}
+
+<div class="text-center">
+    <h2>Low Stocks</h2>
+
+    <table class="text-center table">
+        <thead>
+            <tr>
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Unit Price</th>
+                <th>Available Stocks</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var lowstock in ViewBag.LowStockProducts)
+            {
+                <tr>
+                    <td>@lowstock.IntProductId</td>
+                    <td>@lowstock.strProductName</td>
+                    <td>@lowstock.numUnitPrice</td>
+                    <td>@lowstock.numStock</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

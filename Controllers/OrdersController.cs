@@ -1,5 +1,6 @@
 ﻿using System.Drawing.Printing;
 using System.Linq.Expressions;
+using System.Reflection.Metadata;
 using DotNET.DAL;
 using DotNET.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -219,37 +220,8 @@ namespace DotNET.Controllers
 
        
 
-        // API 04: Get all orders with product details
-        public IActionResult GetAllOrders()
-        {
-            var orders = _context.tblOrders
-                          .Include(o => o.TblProducts)
-                          .Select(o => new
-                          {
-                              o.intOrderId,
-                              o.TblProducts.strProductName,
-                              o.TblProducts.numUnitPrice,
-                              o.strCustomerName,
-                              o.numQuantity,
-                              o.dtOrderDate
-                          }).ToList();
-
-            return View(orders); // Ensure you have a view to display this data.
-        }
-
-        // API 05: Get product order summary
-        public IActionResult GetProductSummary()
-        {
-            var summary = _context.tblProducts
-                .Select(p => new
-                {
-                    p.strProductName,
-                    TotalQuantityOrdered = p.TblOrders.Sum(o => o.numQuantity),
-                    TotalRevenue = p.TblOrders.Sum(o => o.numQuantity * p.numUnitPrice)
-                }).ToList();
-
-            return View(summary); // Ensure you have a view to display this summary.
-        }
+       
+     
 
 
         // API 06: Retrieve all products with stock quantity below a specified threshold
@@ -260,6 +232,7 @@ namespace DotNET.Controllers
                 .Where(p => p.numStock < threshold)
                 .Select(p => new
                 {
+                    p.IntProductId,
                     p.strProductName,
                     p.numUnitPrice,
                     p.numStock
@@ -268,44 +241,12 @@ namespace DotNET.Controllers
 
             if (!lowStockProducts.Any())
             {
-                return NotFound("No products found below the specified stock threshold.");
+                ViewBag.Errors = "No products found below the specified stock threshold.";
             }
-
-            return View(lowStockProducts); // Use a view to display these products
+            ViewBag.LowStockProducts = lowStockProducts;
+            return View(); 
         }
 
-
-        // API 07: Get the top 3 customers by total quantity ordered
-        //[HttpGet]
-        //public IActionResult GetTopCustomers()
-        //{
-
-
-        //    return View(topCustomers); // Use a view to display top customers
-        //}
-
-
-        //// API 08: Find products that have not been ordered at all
-        //[HttpGet]
-        //public IActionResult GetUnorderedProducts()
-        //{
-        //    var unorderedProducts = _context.tblProducts
-        //        .Where(p => !_context.tblOrders.Any(o => o.IntProductId == p.IntProductId))
-        //        .Select(p => new
-        //        {
-        //            p.strProductName,
-        //            p.numUnitPrice,
-        //            p.numStock
-        //        })
-        //        .ToList();
-
-        //    if (!unorderedProducts.Any())
-        //    {
-        //        return NotFound("All products have been ordered at least once.");
-        //    }
-
-        //    return View(unorderedProducts); // Use a view to display these products
-        //}
 
 
 

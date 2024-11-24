@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Update Order Quantity";
+}
+
+<div class="text-center">
+    <h2>Update Order Quantity</h2>
+
+    <form method="post" asp-action="UpdateOrderQuantity" class="mt-5 ">
+        <!-- Order selection dropdown -->
+        <div class="d-flex flex-column justify-content-center align-items-center gap-1">
+            <div>
+                <label for="order">Select Order:</label>
+                <select id="order" name="orderId" required class="mt-5">
+                    @foreach (var order in ViewBag.Orders)
+                    {
+
+                        <option value="@order.intOrderId">
+                            @order.intOrderId - Current Quantity (@order.numQuantity)
+                        </option>
+                    }
+            </div>
+
+            <!-- Change in quantity (+ or -) -->
+            <div>
+                <label for="quantityChange">Change in Quantity (+ or -):</label>
+                <input class="mt-5 " type="number" id="quantityChange" name="quantityChange" required />
+            </div>
+        </div>
+
+        <button class="mt-5 btn btn-info text-white " type="submit">Update</button>
+    </form>
+</div>

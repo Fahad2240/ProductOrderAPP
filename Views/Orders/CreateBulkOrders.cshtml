@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Bulk Order Creation";
+}
+
+<h2>Create Bulk Orders</h2>
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.ErrorMessage
+    </div>
+}
+<form method="post" asp-action="CreateBulkOrders" asp-controller="Orders">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Customer Name</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < ViewBag.OrderCount; i++)
+            {
+                <tr>
+                    <td>
+                        <select name="orders[@i].IntProductId" class="form-control" required>
+                            @foreach (var product in ViewBag.Products)
+                            {
+                                <option value="@product.IntProductId">@product.strProductName</option>
+                            }
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" name="orders[@i].strCustomerName" class="form-control" required />
+                    </td>
+                    <td>
+                        <input type="number" name="orders[@i].numQuantity" class="form-control" min="1" required />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-success">Submit Orders</button>
+</form>

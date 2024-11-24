@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Orders";
+}
+
+
+<div class="text-center">
+    <h2>Products</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Unit Price</th>
+                <th>Num of Stock</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in ViewBag.Products)
+            {
+                <tr>
+                    <td>@product.IntProductId</td>
+                    <td>@product.strProductName</td>
+                    <td>@product.numUnitPrice</td>
+                    <td>@product.numStock</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="mt-5 text-center">
+    <h2>Unordered Products</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Unit Price</th>
+                <th>Num of Stock</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in ViewBag.Unordered)
+            {
+                <tr>
+                    <td>@product.IntProductId</td>
+                    <td>@product.strProductName</td>
+                    <td>@product.numUnitPrice</td>
+                    <td>@product.numStock</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Orders";
+}
+
+<div class="text-center">
+    <h2>Orders</h2>
+
+    <table class="text-center table">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Customer Name</th>
+                <th>Product ID</th>
+                <th>Quantity</th>
+                <th>Order Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in ViewBag.Orders)
+            {
+                <tr>
+                    <td>@order.intOrderId</td>
+                    <td>@order.strCustomerName</td>
+                    <td>@order.IntProductId</td>
+                    <td>@order.numQuantity</td>
+                    <td>@order.dtOrderDate.ToString("yyyy-MM-dd HH:mm:ss:ms")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="text-center mt-5">
+    <h2>Top 3 Customers</h2>    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Customer Name</th>
+                <th>Total Ordered Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var topcustomer in ViewBag.TopCustomers)
+            {
+                <tr>
+                    <td>@topcustomer.CustomerName</td>
+                    <td>@topcustomer.TotalQuantityOrdered</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="text-center mt-5 ">
+    <button class="text-white bg-info px-2 py-1   rounded-1 fw-bold border-0"><a class="text-white text-decoration-none" asp-action="GetOrderCount" asp-controller="Orders">Bulk Orders</a></button>
+</div>

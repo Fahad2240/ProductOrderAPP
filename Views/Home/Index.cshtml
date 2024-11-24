@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Product Order App";
+}
+@model IEnumerable<dynamic>
+<div class="text-center">
+    <h1 class="display-4">Product Order Application</h1>
+  
+
+   <div class="mt-5">
+        <h3>Product Summary</h3>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Total Quantity Ordered</th>
+                    <th>Total Revenue</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.ProductName</td>
+                        <td>@item.TotalQuantityOrdered</td>
+                        <td>@item.TotalRevenue.ToString("C")</td> <!-- Format as currency -->
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    @* <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p> *@
+</div>

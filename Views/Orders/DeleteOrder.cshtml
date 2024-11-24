@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Delete Order";
+}
+
+<div class="text-center">
+    <h2>Delete An Existing Order</h2>
+
+    <form class="mt-5  text-center" method="post" asp-action="DeleteOrder">
+        <div>
+            <label for="order">Select Order:</label>
+            <select id="order" name="orderId" required class="mt-5">
+                @foreach (var order in ViewBag.Orders)
+                {
+
+                    <option value="@order.intOrderId">
+                        @order.intOrderId - Current Quantity (@order.numQuantity)
+                    </option>
+                }
+        </div>
+
+        <button type="submit" class="mt-5 btn btn-danger">Confirm Delete</button>
+    </form>
+
+</div>
